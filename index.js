@@ -1,9 +1,10 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
+import "simplelightbox/dist/simple-lightbox.min.css";
 import getRefs from './helpers/getRefs';
 import { FetchImagesAPI } from './helpers/fetchImages';
-import { renderGallery } from './helpers/renderGallery';
+import { renderGallery, lightbox } from './helpers/renderGallery';
 import resetGallery from './helpers/resetGallery';
 
 const refs = getRefs();
@@ -38,9 +39,10 @@ function onSearch(e) {
             resetGallery();
             fetchImagesAPI.resetPage();
             fetchImagesAPI.incrementPage();
-            renderGallery(hits); 
+            renderGallery(hits);
             loadMoreBtn.classList.remove('is-hidden');
             return Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+            
         }
         )
         .catch(onError);
@@ -50,7 +52,7 @@ function onLoadMore(e) {
     fetchImagesAPI.fetchImages().then(({ data: { totalHits, hits } }) => {
         fetchImagesAPI.incrementPage();
         renderGallery(hits);
-
+        
         const totalPages = totalHits / fetchImagesAPI.perPage;
         console.log(totalPages);
         if (fetchImagesAPI.PAGE > totalPages) {
