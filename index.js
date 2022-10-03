@@ -25,7 +25,9 @@ function onSearch(e) {
     fetchImagesAPI.query = inputEl.value;
     console.log(fetchImagesAPI.query);
 
+    loadMoreBtn.classList.add('is-hidden');
     fetchImagesAPI.resetPage();
+    
     fetchImagesAPI.fetchImages()
         .then(({ data: { hits, totalHits } }) => {
             if (hits.length === 0) {
