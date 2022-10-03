@@ -25,6 +25,7 @@ function onSearch(e) {
     fetchImagesAPI.query = inputEl.value;
     console.log(fetchImagesAPI.query);
 
+    fetchImagesAPI.resetPage();
     fetchImagesAPI.fetchImages()
         .then(({ data: { hits, totalHits } }) => {
             if (hits.length === 0) {
@@ -37,7 +38,7 @@ function onSearch(e) {
             }
 
             resetGallery();
-            fetchImagesAPI.resetPage();
+            
             fetchImagesAPI.incrementPage();
             renderGallery(hits);
             loadMoreBtn.classList.remove('is-hidden');
